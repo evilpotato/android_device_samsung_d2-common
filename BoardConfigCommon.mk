@@ -39,6 +39,9 @@ TARGET_BOOTLOADER_BOARD_NAME := MSM8960
 
 TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.6/bin/arm-eabi-
 
+#Bandaid
+PRODUCT_PROPERTY_OVERRIDES += persist.hwc.mdpcomp.enable=true
+
 # Recovery
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/d2-common/recovery/recovery_keys.c
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
