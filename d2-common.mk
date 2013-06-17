@@ -156,5 +156,5 @@ PRODUCT_COPY_FILES += \
 # common msm8960
 $(call inherit-product, device/samsung/msm8960-common/msm8960.mk)
 
-$(call inherit-product, frameworks/native/build/phone-xxxhdpi-2048-dalvik-heap.mk)
+$(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
