@@ -27,14 +27,32 @@ PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
 # Boot animation
+
+ifneq ($(VARIENT_MODEL),apexqtmo)
+## apexq merge colusion
 TARGET_SCREEN_HEIGHT := 1280
 TARGET_SCREEN_WIDTH := 720
-
+PRODUCT_PROPERTY_OVERRIDES += ro.sf.lcd_density=320
+endif
 # Audio configuration
 PRODUCT_COPY_FILES += \
         device/samsung/d2-common/audio/snd_soc_msm_2x:system/etc/snd_soc_msm/snd_soc_msm_2x \
         device/samsung/d2-common/audio/audio_policy.conf:system/etc/audio_policy.conf \
         device/samsung/d2-common/audio/audio_effects.conf:system/etc/audio_effects.conf
+
+# Keymaps
+PRODUCT_COPY_FILES += \
+       device/samsung/d2-common/keylayout/fsa9485.kl:system/usr/keylayout/fsa9485.kl \
+       device/samsung/d2-common/keylayout/msm8960-snd-card_Button_Jack.kl:system/usr/keylayout/msm8960-snd-card_Button_Jack.kl \
+       device/samsung/d2-common/keylayout/sec_key.kl:system/usr/keylayout/sec_key.kl \
+       device/samsung/d2-common/keylayout/sec_keys.kl:system/usr/keylayout/sec_keys.kl \
+       device/samsung/d2-common/keylayout/sec_powerkey.kl:system/usr/keylayout/sec_powerkey.kl \
+       device/samsung/d2-common/keylayout/sec_touchkey.kl:system/usr/keylayout/sec_touchkey.kl \
+       device/samsung/d2-common/keylayout/sii9234_rcp.kl:system/usr/keylayout/sii9234_rcp.kl
+
+# Media profile
+PRODUCT_COPY_FILES += \
+       device/samsung/d2-common/media/media_profiles.xml:system/etc/media_profiles.xml
 
 # Ramdisk
 PRODUCT_PACKAGES += \
@@ -46,6 +64,13 @@ PRODUCT_PACKAGES += \
     init.target.rc \
     ueventd.qcom.rc
 
+# GPS
+PRODUCT_PACKAGES += \
+    gps.msm8960
+
+PRODUCT_COPY_FILES += \
+    device/samsung/d2-common/gps/gps.conf:system/etc/gps.conf
+
 # Torch
 PRODUCT_PACKAGES += Torch
 
@@ -55,7 +80,8 @@ PRODUCT_COPY_FILES += \
 
 # Wifi
 PRODUCT_PACKAGES += \
-    libnetcmdiface
+    libnetcmdiface \
+    macloader
 
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
@@ -84,7 +110,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     com.qc.hardware=true \
     persist.radio.apm_sim_not_pwdn=1 \
     ro.telephony.call_ring.multiple=0 \
-    ro.sf.lcd_density=320 \
     ro.ril.transmitpower=true \
     ro.opengles.version=131072 \
     persist.audio.fluence.mode=endfire \
@@ -101,9 +126,35 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ril.subscription.types=NV,RUIM \
     ro.config.svlte1x=true \
     ro.cdma.subscribe_on_ruim_ready=true \
-    persist.radio.no_wait_for_card=1 \
+    persist.radio.no_wait_for_card=0 \
     keyguard.no_require_sim=true \
-    media.aac_51_output_enabled=true
+    media.aac_51_output_enabled=true \
+    persist.rild.nitz_plmn="" \
+    persist.rild.nitz_long_ons_0="" \
+    persist.rild.nitz_long_ons_1="" \
+    persist.rild.nitz_long_ons_2="" \
+    persist.rild.nitz_long_ons_3="" \
+    persist.rild.nitz_short_ons_0="" \
+    persist.rild.nitz_short_ons_1="" \
+    persist.rild.nitz_short_ons_2="" \
+    persist.rild.nitz_short_ons_3=""
+
+# NFC Support
+PRODUCT_PACKAGES += \
+    libnfc \
+    libnfc_jni \
+    Nfc \
+    Tag \
+    com.android.nfc_extras
+
+# NFCEE access control
+ifeq ($(TARGET_BUILD_VARIANT),user)
+    NFCEE_ACCESS_PATH := device/samsung/d2-common/nfc/nfcee_access.xml
+else
+    NFCEE_ACCESS_PATH := device/samsung/d2-common/nfc/nfcee_access_debug.xml
+endif
+PRODUCT_COPY_FILES += \
+    $(NFCEE_ACCESS_PATH):system/etc/nfcee_access.xml
 
 # common msm8960
 $(call inherit-product, device/samsung/msm8960-common/msm8960.mk)

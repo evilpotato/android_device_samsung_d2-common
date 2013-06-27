@@ -131,11 +131,13 @@ on post-fs-data
     # Permissions for Camera
     chown system radio /sys/class/camera/rear/rear_camfw
     chown system radio /sys/class/camera/rear/rear_camtype
-    chown system radio /sys/class/camera/rear/rear_flash
+    chown system camera /sys/class/camera/rear/rear_flash
     chown system radio /sys/class/camera/front/front_camfw
     chown system radio /sys/class/camera/front/front_camtype
     chown system camera /sys/class/flash/flash/flash_power
     chmod 660 /sys/class/flash/flash/flash_power
+    chmod 660 /sys/class/camera/rear/rear_flash
+
 
     chown system system /sys/class/sec/led/led_r
     chown system system /sys/class/sec/led/led_g
@@ -206,6 +208,12 @@ on post-fs-data
     # Vibetonz
     chmod 0660 /dev/tspdrv
     chown root shell /dev/tspdrv
+    chmod 0660 /sys/vibrator/pwm_val
+    chown system system /sys/vibrator/pwm_val
+
+    # Panel color temperature
+    chmod 0660 /sys/class/lcd/panel/panel_colors
+    chown system system /sys/class/lcd/panel/panel_colors
 
     # volume up/down key
     chown radio system /sys/class/sec/sec_key/wakeup_keys
@@ -248,10 +256,10 @@ service qrngd /system/bin/qrngd -f
     user root
     group root
 
-service qseecomd /system/bin/qseecomd
-   class late_start
-   user system
-   group system
+#service qseecomd /system/bin/qseecomd
+#   class late_start
+#   user system
+#   group system
 
 # Start kickstart if mdm is detected
 on property:ro.baseband=mdm
@@ -264,4 +272,5 @@ service bugreport /system/bin/bugmailer.sh -v
 	disabled
 	oneshot
 	keycodes 114 115 116
+
 

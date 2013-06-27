@@ -17,6 +17,7 @@ lib/libacdbloader.so
 lib/libaudcal.so
 
 # mmparser extended
+lib/libExtendedExtractor.so
 lib/libmmparser.so
 lib/libmmosal.so
 lib/libdivxdrm.so
@@ -111,6 +112,7 @@ lib/libchromatix_ov2720_default_video.so
 lib/libchromatix_ov2720_preview.so
 lib/libchromatix_s5k6a3yx_default_video.so
 lib/libchromatix_s5k6a3yx_preview.so
+lib/libchromatix_s5k6a3yx_smart_stay.so
 lib/libchromatix_s5k6a3yx_vt_hd.so
 lib/libchromatix_s5k6a3yx_vt.so
 
@@ -130,7 +132,6 @@ cameradata/datapattern_front_420sp.yuv
 lib/libdiag.so
 
 # Wi-Fi
-bin/macloader
 etc/wifi/bcmdhd_apsta.bin_b2
 etc/wifi/bcmdhd_p2p.bin_b2
 etc/wifi/bcmdhd_sta.bin_b2
