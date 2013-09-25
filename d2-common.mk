@@ -143,6 +143,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qc.sdk.audio.fluencetype=fluence
 endif
 
+#Set Correct LTE Mode
 ifneq ($(TARGET_VOICE_TECH), cdma)
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.qc_lte_network_modes=true
