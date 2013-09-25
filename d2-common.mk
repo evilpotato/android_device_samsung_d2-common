@@ -143,6 +143,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qc.sdk.audio.fluencetype=fluence
 endif
 
+ifneq ($(TARGET_VOICE_TECH), cdma)
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.config.qc_lte_network_modes=true
+endif
+
 # enable repeatable keys in cwm
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.cwm.enable_key_repeat=true \
